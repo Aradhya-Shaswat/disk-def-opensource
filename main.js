@@ -6,69 +6,9 @@ const os = require('os');
 const userDataPath = path.join(os.homedir(), 'disk-def');
 const licenseFilePath = path.join(userDataPath, 'license.json');
 
-let splashWindow;
-let licenseWindow;
-let welcomeWindow;
-let mainWindow;
-let thanksWindow; 
+let mainWindow = null;
 
-function createSplashWindow() {
-  if (splashWindow) {
-    splashWindow.close();
-  }
-
-  splashWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    alwaysOnTop: true,
-    transparent: true,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  splashWindow.loadFile(path.join(__dirname, 'src/splash.html'));
-}
-
-function createLicenseWindow() {
-  if (licenseWindow) {
-    licenseWindow.close();
-  }
-
-  licenseWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  licenseWindow.loadFile(path.join(__dirname, 'src/license.html'));
-}
-
-function createWelcomeWindow() {
-  if (welcomeWindow) {
-    welcomeWindow.close();
-  }
-
-  welcomeWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  welcomeWindow.loadFile(path.join(__dirname, 'src/welcome.html'));
-}
-
-function createMainWindow() {
+function createWindow() {
   if (mainWindow) {
     mainWindow.close();
   }
@@ -83,25 +23,12 @@ function createMainWindow() {
     },
   });
 
-  mainWindow.loadFile(path.join(__dirname, 'dist/index.html'));
-}
-
-function createThanksWindow() {
-  if (thanksWindow) {
-    thanksWindow.close();
-  }
-
-  thanksWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
+  mainWindow.on('closed', () => {
+    mainWindow = null;
   });
 
-  thanksWindow.loadFile(path.join(__dirname, 'src/thanks.html'));
+  // Load splash screen initially
+  mainWindow.loadFile(path.join(__dirname, 'src/splash.html'));
 }
 
 function checkLicense() {
@@ -117,19 +44,17 @@ function checkLicense() {
 
   if (licenseData.isLicensed) {
     if (licenseData.showWelcome) {
-      createWelcomeWindow();
+      mainWindow.loadFile(path.join(__dirname, 'src/welcome.html'));
     } else {
-      createMainWindow();
+      mainWindow.loadFile(path.join(__dirname, 'dist/index.html'));
     }
-    splashWindow.close();
   } else {
-    createLicenseWindow();
-    splashWindow.close();
+    mainWindow.loadFile(path.join(__dirname, 'src/license.html'));
   }
 }
 
 app.whenReady().then(() => {
-  createSplashWindow();
+  createWindow();
   setTimeout(checkLicense, 5000);
 });
 
@@ -150,9 +75,9 @@ ipcMain.on('validate-license', async (event, licenseKey) => {
 ipcMain.on('license-valid', () => {
   const licenseData = JSON.parse(fs.readFileSync(licenseFilePath));
   if (licenseData.showWelcome) {
-    createWelcomeWindow();
+    mainWindow.loadFile(path.join(__dirname, 'src/welcome.html'));
   } else {
-    createMainWindow();
+    mainWindow.loadFile(path.join(__dirname, 'dist/index.html'));
   }
 });
 
@@ -160,12 +85,8 @@ ipcMain.on('continue-to-main', () => {
   const licenseData = JSON.parse(fs.readFileSync(licenseFilePath));
   licenseData.showWelcome = false;
   fs.writeFileSync(licenseFilePath, JSON.stringify(licenseData));
-  createMainWindow();
 
-  
-  if (thanksWindow) {
-    thanksWindow.close();
-  }
+  mainWindow.loadFile(path.join(__dirname, 'dist/index.html'));
 });
 
 app.on('window-all-closed', () => {
@@ -176,6 +97,6 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (mainWindow === null) {
-    createMainWindow();
+    createWindow();
   }
 });

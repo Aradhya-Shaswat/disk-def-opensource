@@ -1,42 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #05011F;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-    }
-    .container {
-      text-align: center;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome!</h1>
-    <p>Thank you for using our application. Click below to continue to the main page.</p>
-    <button onclick="continueToMain()">Continue</button>
-  </div>
-  <script>
-    const { ipcRenderer } = require('electron');
 
-    function continueToMain() {
-      ipcRenderer.send('continue-to-main');
-    }
-  </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #05011F;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .welcome-text {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: small;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .button {
+            background-color: #019370;
+            color: #ffffff;
+            font-family: 'Verdana', 'Geneva', 'Tahoma', sans-serif;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #017a5e;
+            transform: scale(1.05);
+        }
+
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 147, 123, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="splash-content">
+            <img src="./disk_welcome_man.png" width="200px" height="200px">
+        </div>
+        <p class="welcome-text">Welcome! Disk Defender secures your data with our advanced encryption and protection
+            features.</p>
+        <button class="button" onclick="continueToMain()">Continue</button>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        function continueToMain() {
+            ipcRenderer.send('continue-to-main');
+        }
+    </script>
 </body>
+
 </html>
