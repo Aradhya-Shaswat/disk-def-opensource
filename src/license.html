@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter License Key</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #05011F;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enter License Key</h1>
+    <input type="text" id="licenseKey" placeholder="Enter license key">
+    <button onclick="submitLicense()">Submit</button>
+    <div id="errorMessage" style="color: red;"></div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    function submitLicense() {
+      const licenseKey = document.getElementById('licenseKey').value;
+      ipcRenderer.send('validate-license', licenseKey);
+    }
+
+    ipcRenderer.on('license-validation-result', (event, result) => {
+      if (result.valid) {
+        ipcRenderer.send('license-valid', result);
+      } else {
+        document.getElementById('errorMessage').innerText = 'Invalid license key. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>

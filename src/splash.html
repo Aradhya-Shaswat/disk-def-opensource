@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #05011F;
+      color: #ffffff;
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+      height: 100%; 
+      width: 100%;
+    }
+
+    .splash-content {
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .splash-image {
+      max-width: 100%;
+      max-height: 80%;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .fadeOut {
+      animation: fadeOut 2s ease-out;
+    }
+
+  </style>
+</head>
+<body>
+    <div class="splash-content">
+        <img src="./disk_splash.png" class="splash-image" alt="Loading..." width="300px" height="120px" style=" position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;">
+      </div>
+</body>
+</html>
