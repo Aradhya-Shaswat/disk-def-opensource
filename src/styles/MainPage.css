@@ -7,22 +7,87 @@ html, body {
 .main-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   color: white;
   background-color: #05011f;
   height: 100vh;
   padding: 20px;
   overflow: hidden; 
   user-select: none;
+  position: relative;
+}
+
+.top-bar {
+  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  gap: 20px;
+}
+
+.top-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.top-bar-item:focus {
+  outline: none;
+}
+
+.top-bar-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.top-bar-text {
+  font-size: 14px;
 }
 
 .main-content {
-  text-align: center;
+  text-align: left;
+  padding: 20px;
+}
+
+.welcome-message {
+  color: #5BFAD4;
+  font-size: 32px;
+  margin-top: 50px;
+}
+
+.description {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-image {
+  margin-top: 20px;
+  position: relative;
+}
+
+.main-image img {
+  width: 200px;
+  height: auto;
 }
 
 .main-buttons {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .learn-more-button,
@@ -42,13 +107,4 @@ html, body {
 .run-scanning-button {
   background-color: #007bff;
   color: white;
-}
-
-.main-image {
-  margin-top: 20px;
-}
-
-.main-image img {
-  width: 200px;
-  height: auto;
 }

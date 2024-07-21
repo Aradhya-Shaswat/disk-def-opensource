@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -28,7 +28,7 @@ function createWindow() {
     mainWindow = null;
   });
 
-  // Load splash screen initially
+  
   mainWindow.loadFile(path.join(__dirname, 'src/splash.html'));
 }
 
@@ -57,6 +57,11 @@ function checkLicense() {
 app.whenReady().then(() => {
   createWindow();
   setTimeout(checkLicense, 2500);
+
+  
+  globalShortcut.register('Ctrl+Shift+I', () => {
+    
+  });
 });
 
 ipcMain.on('validate-license', async (event, licenseKey) => {
@@ -92,6 +97,7 @@ ipcMain.on('continue-to-main', () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    globalShortcut.unregisterAll(); 
     app.quit();
   }
 });
