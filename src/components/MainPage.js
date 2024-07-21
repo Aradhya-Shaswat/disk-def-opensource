@@ -27,8 +27,8 @@ const MainPage = () => {
         </div>
       </div>
       <div className="main-buttons">
-        <button className="learn-more-button">Learn more</button>
-        <button className="run-scanning-button">Run Scanning</button>
+        <button className="learn-more-button">Learn more.</button>
+        <button className="run-scanning-button">Start Scanning</button>
       </div>
     </div>
   );

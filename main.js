@@ -72,7 +72,7 @@ app.whenReady().then(() => {
   createWindow();
   setTimeout(checkLicense, 2500);
 
-  globalShortcut.register('Ctrl+Shift+I', () => {});
+  // globalShortcut.register('Ctrl+Shift+I', () => {});
 
   globalShortcut.register('F11', () => {});
 });
