@@ -1,5 +1,17 @@
 .app-container {
-    display: flex;
-    height: 100vh;
-  }
-  
+  display: flex;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #0a192f;
+}
+
+.separator {
+  width: 1px;
+  background-color: #43b8a0;
+  height: 100vh;
+  border-radius: 50px;
+}

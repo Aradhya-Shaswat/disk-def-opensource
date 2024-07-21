@@ -20,16 +20,23 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images/',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
       template: './src/index.html',
     }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  target: 'electron-renderer',
 };
