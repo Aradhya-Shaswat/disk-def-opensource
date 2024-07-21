@@ -17,6 +17,7 @@ function createWindow() {
     width: 800,
     height: 600,
     frame: false,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -55,7 +56,7 @@ function checkLicense() {
 
 app.whenReady().then(() => {
   createWindow();
-  setTimeout(checkLicense, 5000);
+  setTimeout(checkLicense, 2500);
 });
 
 ipcMain.on('validate-license', async (event, licenseKey) => {
