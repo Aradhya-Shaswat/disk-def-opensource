@@ -16,14 +16,13 @@
 }
 
 .sidebar-logo {
-  margin-top: 10px;
   width: 75px;
   height: 90px;
   margin-bottom: 10px;
 }
 
 .separator {
-  width: 150%;
+  width: 100%;
   height: 1px;
   background-color: #43b8a0;
   margin-top: 10px;
@@ -39,9 +38,11 @@
 .sidebar-item {
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sidebar-item .icon {
@@ -51,4 +52,9 @@
 .sidebar-item:hover {
   background-color: #0a192f;
   border-radius: 5px;
+}
+
+.sidebar-item.selected {
+  background-color: black;
+  color: white;
 }

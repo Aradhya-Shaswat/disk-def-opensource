@@ -12,24 +12,38 @@ function createWindow() {
   if (mainWindow) {
     mainWindow.close();
   }
-
+    
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
     frame: false,
     resizable: false,
+    fullscreen: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
+  mainWindow.on('enter-full-screen', () => {
+    mainWindow.setFullScreen(false);
+  });
+  
+  mainWindow.on('leave-full-screen', () => {
+    mainWindow.setFullScreen(false);
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  
   mainWindow.loadFile(path.join(__dirname, 'src/splash.html'));
+
+  mainWindow.webContents.on('before-input-event', (event, input) => {
+    if (input.key === 'F11') {
+      event.preventDefault();
+    }
+  });
 }
 
 function checkLicense() {
@@ -58,10 +72,9 @@ app.whenReady().then(() => {
   createWindow();
   setTimeout(checkLicense, 2500);
 
-  
-  globalShortcut.register('Ctrl+Shift+I', () => {
-    
-  });
+  globalShortcut.register('Ctrl+Shift+I', () => {});
+
+  globalShortcut.register('F11', () => {});
 });
 
 ipcMain.on('validate-license', async (event, licenseKey) => {
