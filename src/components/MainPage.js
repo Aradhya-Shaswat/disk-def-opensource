@@ -35,14 +35,19 @@ const MainContent = ({ onStartScanning }) => (
 );
 
 const ScanningPage = ({ onStopScanning }) => (
-  <div className="scanning-page">
-    <h1 className="common-heading">Scanning your system</h1>
-    <p className="common-description">Scanning your system, don't turn off your computer.</p>
-    <div className="spinner">
-      <img src={SpinnerImage} alt="Spinner" className="spinner-img"/>
+  <div className="main-content">
+   <h1 className="welcome-message">Scanning your system</h1>
+    <p className="description">Your system is undergoing a comprehensive scan. Kindly refrain from deactivating your computer during this procedure.</p>
+    <div className="main-image-container">
+      <div className="main-image-1">
+        <img src={SpinnerImage} />
+      </div>
     </div>
-    <button className="stop-scan-button" onClick={onStopScanning}>Stop Scan</button>
+    <div className="main-buttons">
+      <button className="run-scanning-button" onClick={onStopScanning}>Stop Scanning</button>
+    </div>
   </div>
+  
 );
 
 const MainPage = () => {

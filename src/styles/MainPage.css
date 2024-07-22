@@ -89,7 +89,26 @@ html, body {
   height: auto;
 }
 
-.main-buttons {
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.main-image-1 {
+  margin-top: 20px;
+  position: relative;
+  animation: rotate 3s linear infinite; 
+}
+
+.main-image-1 img {
+  width: 200px;
+  height: auto;
+}
+.main-buttons, .scanning-page .button-container {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -107,7 +126,7 @@ html, body {
   font-size: 14px;
 }
 
-.run-scanning-button {
+.run-scanning-button, .stop-scan-button {
   background-color: #02C294;
   color: white;
   padding: 10px 20px;
@@ -117,7 +136,7 @@ html, body {
   font-size: 14px;
 }
 
-.run-scanning-button:hover {
+.run-scanning-button:hover, .stop-scan-button:hover {
   background-color: #028d70; 
 }
 
@@ -125,53 +144,3 @@ html, body {
   display: none;
 }
 
-.scanning-page {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  height: 100vh;
-  color: white;
-  padding: 20px;
-}
-
-.scanning-page .common-heading {
-  color: #5BFAD4;
-  font-size: 32px;
-  margin-top: 35px;
-}
-
-.scanning-page .common-description {
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-.spinner {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.spinner-img {
-  width: 100px;
-  height: 100px;
-  animation: spin 1s linear infinite;
-}
-
-.stop-scan-button {
-  background-color: #02C294;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.stop-scan-button:hover {
-  background-color: #028d70;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
