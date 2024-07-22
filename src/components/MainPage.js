@@ -6,6 +6,7 @@ import SettingsIcon from '../settings.png';
 import SpinnerImage from '../spinner.png';
 import ClockImage from '../clock.png'; 
 import BackgroundImage from '../bg-image.png'; 
+const { ipcRenderer } = window.require('electron');
 
 const TopBar = () => (
   <div className="top-bar">
@@ -40,13 +41,16 @@ const ScanningPage = ({ onStopScanning }) => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
+    const duration = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000; // Random duration between 3-5 seconds
+    const intervalTime = duration / 100; // Time to increase by 1%
+
     const interval = setInterval(() => {
       setPercentage(prev => {
         if (prev < 100) return prev + 1;
         clearInterval(interval);
         return 100;
       });
-    }, 100);
+    }, intervalTime);
 
     return () => clearInterval(interval);
   }, []);
@@ -74,19 +78,44 @@ const ScanningPage = ({ onStopScanning }) => {
   );
 };
 
+const ResultPage = ({ result }) => (
+  <div className="main-content">
+    <h1 className="welcome-message">{result === 'threat' ? 'Threat Found!' : 'Scanning Complete'}</h1>
+    <p className="description">
+      {result === 'threat' ? 'Threats detected on your system. Click "Clean Threats" to address issues and improve system performance.' : 'No temporary files found on your system.'}
+    </p>
+  </div>
+);
+
 const MainPage = () => {
   const [scanning, setScanning] = useState(false);
+  const [result, setResult] = useState(null);
 
-  const startScanning = () => setScanning(true);
+  const startScanning = () => {
+    setScanning(true);
+    const delay = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
+
+    setTimeout(async () => {
+      const response = await ipcRenderer.invoke('delete-temp-files');
+      setResult(response.success ? 'complete' : 'threat');
+
+      setTimeout(() => {
+        setScanning(false);
+      }, 2000); // added this so that it looks like it is doing some shit 
+    }, delay);
+  };
+
   const stopScanning = () => setScanning(false);
 
   return (
     <div className="main-page">
       <TopBar />
-      {!scanning ? (
-        <MainContent onStartScanning={startScanning} />
-      ) : (
+      {result ? (
+        <ResultPage result={result} />
+      ) : scanning ? (
         <ScanningPage onStopScanning={stopScanning} />
+      ) : (
+        <MainContent onStartScanning={startScanning} />
       )}
     </div>
   );

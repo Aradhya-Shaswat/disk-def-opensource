@@ -3,7 +3,9 @@ html, body {
   margin: 0;
   overflow: hidden; 
 }
-
+.sidebar {
+  flex-shrink: 0;
+}
 .main-page, .scanning-page {
   display: flex;
   flex-direction: column;

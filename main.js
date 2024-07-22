@@ -13,7 +13,7 @@ function createWindow() {
   if (mainWindow) {
     mainWindow.close();
   }
-    
+   
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -83,6 +83,17 @@ async function getSystemInfo() {
   }
 }
 
+function checkTempFiles() {
+  const tempPath = os.tmpdir();
+  try {
+    const files = fs.readdirSync(tempPath);
+    return files.length > 0;
+  } catch (error) {
+    console.error('Error checking temp files:', error);
+    return false;
+  }
+}
+
 app.whenReady().then(() => {
   createWindow();
   setTimeout(checkLicense, 2500);
@@ -129,6 +140,25 @@ ipcMain.on('continue-to-main', () => {
 
 ipcMain.handle('get-system-info', async () => {
   return await getSystemInfo();
+});
+
+ipcMain.handle('check-temp-files', () => {
+  return checkTempFiles();
+});
+
+ipcMain.handle('delete-temp-files', async () => {
+  const tempPath = os.tmpdir();
+  try {
+    const files = fs.readdirSync(tempPath);
+    for (const file of files) {
+      const filePath = path.join(tempPath, file);
+      fs.unlinkSync(filePath);
+    }
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting temp files:', error);
+    return { success: false, error: error.message };
+  }
 });
 
 app.on('window-all-closed', () => {

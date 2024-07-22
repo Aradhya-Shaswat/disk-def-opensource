@@ -1,18 +1,21 @@
+
 html, body {
   height: 100%;
   margin: 0;
   overflow: hidden; 
 }
 
+
 .app-container {
   display: flex;
   height: 100vh;
 }
 
+
 .sidebar {
   background-color: #05011f;
   color: white;
-  width: 300px;
+  width: 250px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,11 +25,13 @@ html, body {
   overflow: hidden;
 }
 
+
 .sidebar-header {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 
 .sidebar-logo {
   margin-top: 30px;
@@ -35,17 +40,20 @@ html, body {
   height: 90px;
 }
 
+
 .separator {
   width: 100%;
   height: 1px;
   background-color: #43b8a0;
 }
 
+
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 
 .sidebar-item {
   display: flex;
@@ -56,7 +64,9 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   transition: background-color 0.15s, color 0.15s;
+  overflow: hidden;
 }
+
 
 .sidebar-item .icon {
   margin-right: 10px;
@@ -67,27 +77,33 @@ html, body {
   display: inline-block;
 }
 
+
 .sidebar-item span {
   display: inline-block;
   vertical-align: middle;
   flex: 1;
 }
 
+
 .sidebar-item:hover {
   background-color: #0a192f;
 }
+
 
 .sidebar-item.selected {
   background-color: black;
   color: #5BFAD4;
 }
 
+
 .sidebar-item.selected .icon {
   color: #5BFAD4;
 }
+
 
 .content {
   flex: 1;
   margin-left: 300px;
   padding: 20px;
+  overflow: auto;
 }
