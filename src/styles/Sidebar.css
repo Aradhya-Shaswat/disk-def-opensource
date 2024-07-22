@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; 
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
 .sidebar {
   background-color: #05011f;
   color: white;
@@ -7,6 +18,8 @@
   flex-direction: column;
   padding: 0;
   border-right: 1px solid #43b8a0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .sidebar-header {
@@ -71,4 +84,10 @@
 
 .sidebar-item.selected .icon {
   color: #5BFAD4;
+}
+
+.content {
+  flex: 1;
+  margin-left: 300px;
+  padding: 20px;
 }
