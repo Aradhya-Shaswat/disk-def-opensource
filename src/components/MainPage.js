@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/MainPage.css';
 import ShieldImage from '../disk_home.png';
 import NotificationIcon from '../notification.png';
 import SettingsIcon from '../settings.png';
-import SpinnerImage from '../spinner.png'; 
+import SpinnerImage from '../spinner.png';
+import ClockImage from '../clock.png'; 
+import BackgroundImage from '../bg-image.png'; 
 
 const TopBar = () => (
   <div className="top-bar">
@@ -34,21 +36,43 @@ const MainContent = ({ onStartScanning }) => (
   </div>
 );
 
-const ScanningPage = ({ onStopScanning }) => (
-  <div className="main-content">
-   <h1 className="welcome-message">Scanning your system</h1>
-    <p className="description">Your system is undergoing a comprehensive scan. Kindly refrain from deactivating your computer during this procedure.</p>
-    <div className="main-image-container">
-      <div className="main-image-1">
-        <img src={SpinnerImage} />
+const ScanningPage = ({ onStopScanning }) => {
+  const [percentage, setPercentage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPercentage(prev => {
+        if (prev < 100) return prev + 1;
+        clearInterval(interval);
+        return 100;
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="main-content">
+      <h1 className="welcome-message">Scanning your system</h1>
+      <p className="description">Your system is undergoing a comprehensive scan. Kindly refrain from deactivating your computer during this procedure.</p>
+      <div className="main-image-container">
+        <div className="background-image-container">
+          <img src={BackgroundImage} alt="Background" className="background-image" />
+        </div>
+        <div className="main-image-1">
+          <img src={SpinnerImage} alt="Spinner" className="spinner-image" />
+          <div className="percentage-counter">
+            <img src={ClockImage} alt="Clock" className="clock-icon" />
+            {percentage}%
+          </div>
+        </div>
+      </div>
+      <div className="main-buttons">
+        <button className="run-scanning-button" onClick={onStopScanning}>Stop Scanning</button>
       </div>
     </div>
-    <div className="main-buttons">
-      <button className="run-scanning-button" onClick={onStopScanning}>Stop Scanning</button>
-    </div>
-  </div>
-  
-);
+  );
+};
 
 const MainPage = () => {
   const [scanning, setScanning] = useState(false);
