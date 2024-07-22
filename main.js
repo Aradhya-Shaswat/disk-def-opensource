@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const si = require('systeminformation'); 
 
 const userDataPath = path.join(os.homedir(), 'disk-def');
 const licenseFilePath = path.join(userDataPath, 'license.json');
@@ -68,13 +69,31 @@ function checkLicense() {
   }
 }
 
+async function getSystemInfo() {
+  try {
+    const cpu = await si.cpu();
+    const memory = await si.mem();
+    const disk = await si.diskLayout();
+    const temperature = await si.thermals();
+
+    return { cpu, memory, disk, temperature };
+  } catch (error) {
+    console.error('Error fetching system info:', error);
+    return { error: error.message };
+  }
+}
+
 app.whenReady().then(() => {
   createWindow();
   setTimeout(checkLicense, 2500);
 
-  // globalShortcut.register('Ctrl+Shift+I', () => {});
+  globalShortcut.register('Ctrl+Shift+I', () => {
+    mainWindow.webContents.openDevTools();
+  });
 
-  globalShortcut.register('F11', () => {});
+  globalShortcut.register('F11', () => {
+    
+  });
 });
 
 ipcMain.on('validate-license', async (event, licenseKey) => {
@@ -91,7 +110,7 @@ ipcMain.on('validate-license', async (event, licenseKey) => {
   }
 });
 
-ipcMain.on('license-valid', () => {
+ipcMain.on('license-valid', async () => {
   const licenseData = JSON.parse(fs.readFileSync(licenseFilePath));
   if (licenseData.showWelcome) {
     mainWindow.loadFile(path.join(__dirname, 'src/welcome.html'));
@@ -106,6 +125,10 @@ ipcMain.on('continue-to-main', () => {
   fs.writeFileSync(licenseFilePath, JSON.stringify(licenseData));
 
   mainWindow.loadFile(path.join(__dirname, 'dist/index.html'));
+});
+
+ipcMain.handle('get-system-info', async () => {
+  return await getSystemInfo();
 });
 
 app.on('window-all-closed', () => {
