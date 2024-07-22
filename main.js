@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const si = require('systeminformation'); 
+const si = require('systeminformation');
 
 const userDataPath = path.join(os.homedir(), 'disk-def');
 const licenseFilePath = path.join(userDataPath, 'license.json');
@@ -13,7 +13,7 @@ function createWindow() {
   if (mainWindow) {
     mainWindow.close();
   }
-   
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -29,7 +29,7 @@ function createWindow() {
   mainWindow.on('enter-full-screen', () => {
     mainWindow.setFullScreen(false);
   });
-  
+
   mainWindow.on('leave-full-screen', () => {
     mainWindow.setFullScreen(false);
   });
@@ -44,8 +44,13 @@ function createWindow() {
     if (input.key === 'F11') {
       event.preventDefault();
     }
+    if ((input.key === 'R' && input.control) || (input.key === 'R' && input.meta)) {
+      event.preventDefault();
+    }
   });
 }
+
+
 
 function checkLicense() {
   if (!fs.existsSync(userDataPath)) {
@@ -103,7 +108,7 @@ app.whenReady().then(() => {
   });
 
   globalShortcut.register('F11', () => {
-    
+
   });
 });
 
@@ -163,7 +168,7 @@ ipcMain.handle('delete-temp-files', async () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    globalShortcut.unregisterAll(); 
+    globalShortcut.unregisterAll();
     app.quit();
   }
 });

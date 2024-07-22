@@ -6,6 +6,9 @@ import SettingsIcon from '../settings.png';
 import SpinnerImage from '../spinner.png';
 import ClockImage from '../clock.png'; 
 import BackgroundImage from '../bg-image.png'; 
+import ThreatRedImage from '../threat-red.png'; 
+import ThreatBgImage from '../threat-bg-image.png';
+
 const { ipcRenderer } = window.require('electron');
 
 const TopBar = () => (
@@ -58,7 +61,7 @@ const ScanningPage = ({ onStopScanning }) => {
   return (
     <div className="main-content">
       <h1 className="welcome-message">Scanning your system</h1>
-      <p className="description">Your system is undergoing a comprehensive scan. Kindly refrain from deactivating your computer during this procedure.</p>
+      <p className="description">Your system is undergoing a comprehensive scan. Please refrain from turining off your system.</p>
       <div className="main-image-container">
         <div className="background-image-container">
           <img src={BackgroundImage} alt="Background" className="background-image" />
@@ -80,10 +83,24 @@ const ScanningPage = ({ onStopScanning }) => {
 
 const ResultPage = ({ result }) => (
   <div className="main-content">
-    <h1 className="welcome-message">{result === 'threat' ? 'Threat Found!' : 'Scanning Complete'}</h1>
+    <h1 className="welcome-message">
+      {result === 'threat' ? 'Scanning your system' : 'Scanning Complete'}
+    </h1>
     <p className="description">
-      {result === 'threat' ? 'Threats detected on your system. Click "Clean Threats" to address issues and improve system performance.' : 'No temporary files found on your system.'}
+      {result === 'threat' 
+        ? 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'
+        : 'No temporary files found on your system.'}
     </p>
+    {result === 'threat' && (
+      <div className="main-image-container">
+      <div className="background-image-container">
+        <img src={ThreatBgImage} alt="Background" className="background-image" />
+      </div>
+      <div className="main-image-1">
+        <img src={ThreatRedImage} alt="Result" className="result-image" />
+      </div>
+    </div>
+    )}
   </div>
 );
 

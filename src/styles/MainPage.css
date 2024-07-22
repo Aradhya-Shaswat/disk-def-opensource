@@ -183,3 +183,34 @@ html, body {
 .hidden {
   display: none;
 }
+
+.result-image-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.result-image {
+  width: 225px;
+  height: auto; 
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+}
