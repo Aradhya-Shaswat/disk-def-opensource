@@ -4,9 +4,9 @@ import ShieldImage from '../disk_home.png';
 import NotificationIcon from '../notification.png';
 import SettingsIcon from '../settings.png';
 import SpinnerImage from '../spinner.png';
-import ClockImage from '../clock.png'; 
-import BackgroundImage from '../bg-image.png'; 
-import ThreatRedImage from '../threat-red.png'; 
+import ClockImage from '../clock.png';
+import BackgroundImage from '../bg-image.png';
+import ThreatRedImage from '../threat-red.png';
 import ThreatBgImage from '../threat-bg-image.png';
 
 const { ipcRenderer } = window.require('electron');
@@ -42,6 +42,7 @@ const MainContent = ({ onStartScanning }) => (
 
 const ScanningPage = ({ onStopScanning }) => {
   const [percentage, setPercentage] = useState(0);
+  const [disableStop, setDisableStop] = useState(false);
 
   useEffect(() => {
     const duration = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000; // Random duration between 3-5 seconds
@@ -55,13 +56,18 @@ const ScanningPage = ({ onStopScanning }) => {
       });
     }, intervalTime);
 
-    return () => clearInterval(interval);
+    const disableTimeout = setTimeout(() => setDisableStop(true), 1500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(disableTimeout);
+    };
   }, []);
 
   return (
     <div className="main-content">
       <h1 className="welcome-message">Scanning your system</h1>
-      <p className="description">Your system is undergoing a comprehensive scan. Please refrain from turining off your system.</p>
+      <p className="description">Your system is undergoing a comprehensive scan. Please refrain from turning off your system.</p>
       <div className="main-image-container">
         <div className="background-image-container">
           <img src={BackgroundImage} alt="Background" className="background-image" />
@@ -75,7 +81,7 @@ const ScanningPage = ({ onStopScanning }) => {
         </div>
       </div>
       <div className="main-buttons">
-        <button className="run-scanning-button" onClick={onStopScanning}>Stop Scanning</button>
+        <button className="run-scanning-button" onClick={onStopScanning} disabled={!disableStop}>Stop Scanning</button>
       </div>
     </div>
   );
@@ -84,22 +90,22 @@ const ScanningPage = ({ onStopScanning }) => {
 const ResultPage = ({ result }) => (
   <div className="main-content">
     <h1 className="welcome-message">
-      {result === 'threat' ? 'Scanning your system' : 'Scanning Complete'}
+      {result === 'threat' ? 'Threat Detected!' : 'Scanning Complete'}
     </h1>
     <p className="description">
       {result === 'threat' 
-        ? 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'
+        ? 'Potential threats found on your system. Please review.'
         : 'No temporary files found on your system.'}
     </p>
     {result === 'threat' && (
       <div className="main-image-container">
-      <div className="background-image-container">
-        <img src={ThreatBgImage} alt="Background" className="background-image" />
+        <div className="background-image-container">
+          <img src={ThreatBgImage} alt="Background" className="background-image" />
+        </div>
+        <div className="main-image-1">
+          <img src={ThreatRedImage} alt="Result" className="result-image" />
+        </div>
       </div>
-      <div className="main-image-1">
-        <img src={ThreatRedImage} alt="Result" className="result-image" />
-      </div>
-    </div>
     )}
   </div>
 );
@@ -110,6 +116,7 @@ const MainPage = () => {
 
   const startScanning = () => {
     setScanning(true);
+    setResult(null);
     const delay = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
 
     setTimeout(async () => {
