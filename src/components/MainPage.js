@@ -40,13 +40,14 @@ const MainContent = ({ onStartScanning }) => (
   </div>
 );
 
-const ScanningPage = ({ onStopScanning }) => {
+const ScanningPage = ({ onStopScanning, disableSidebar }) => {
   const [percentage, setPercentage] = useState(0);
   const [disableStop, setDisableStop] = useState(false);
 
   useEffect(() => {
-    const duration = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000; // Random duration between 3-5 seconds
-    const intervalTime = duration / 100; // Time to increase by 1%
+    disableSidebar(true);
+    const duration = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
+    const intervalTime = duration / 100;
 
     const interval = setInterval(() => {
       setPercentage(prev => {
@@ -61,8 +62,9 @@ const ScanningPage = ({ onStopScanning }) => {
     return () => {
       clearInterval(interval);
       clearTimeout(disableTimeout);
+      disableSidebar(false);
     };
-  }, []);
+  }, [disableSidebar]);
 
   return (
     <div className="main-content">
@@ -90,12 +92,12 @@ const ScanningPage = ({ onStopScanning }) => {
 const ResultPage = ({ result }) => (
   <div className="main-content">
     <h1 className="welcome-message">
-      {result === 'threat' ? 'Threat Detected!' : 'Scanning Complete'}
+      {result === 'threat' ? 'Scanning your system' : 'Scanning your system'}
     </h1>
     <p className="description">
       {result === 'threat' 
-        ? 'Potential threats found on your system. Please review.'
-        : 'No temporary files found on your system.'}
+        ? 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'
+        : 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'}
     </p>
     {result === 'threat' && (
       <div className="main-image-container">
@@ -104,6 +106,7 @@ const ResultPage = ({ result }) => (
         </div>
         <div className="main-image-1">
           <img src={ThreatRedImage} alt="Result" className="result-image" />
+          <p className='threat-text'>THREATS DETECTED!</p>
         </div>
       </div>
     )}
@@ -113,6 +116,7 @@ const ResultPage = ({ result }) => (
 const MainPage = () => {
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState(null);
+  const [disableSidebar, setDisableSidebar] = useState(false);
 
   const startScanning = () => {
     setScanning(true);
@@ -125,19 +129,19 @@ const MainPage = () => {
 
       setTimeout(() => {
         setScanning(false);
-      }, 2000); // added this so that it looks like it is doing some shit 
+      }, 2000);
     }, delay);
   };
 
   const stopScanning = () => setScanning(false);
 
   return (
-    <div className="main-page">
+    <div className={`main-page ${disableSidebar ? 'sidebar-disabled' : ''}`}>
       <TopBar />
       {result ? (
         <ResultPage result={result} />
       ) : scanning ? (
-        <ScanningPage onStopScanning={stopScanning} />
+        <ScanningPage onStopScanning={stopScanning} disableSidebar={setDisableSidebar} />
       ) : (
         <MainContent onStartScanning={startScanning} />
       )}

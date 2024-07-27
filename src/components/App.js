@@ -36,9 +36,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Sidebar setCurrentPage={setCurrentPage} />
-      <div className="main-content">
         {renderPage()}
-      </div>
     </div>
   );
 };
