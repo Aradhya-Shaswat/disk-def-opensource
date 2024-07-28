@@ -216,5 +216,7 @@ html, body {
 }
 
 .threat-text {
-  
+  text-align: center;
+  text-transform: capitalize;
+  text-shadow: #028d70;
 }

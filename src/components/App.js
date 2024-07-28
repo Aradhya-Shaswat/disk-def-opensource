@@ -15,7 +15,7 @@ const App = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <MainPage />;
+        return <MainPage setCurrentPage={setCurrentPage} />;
       case 'optimizer':
         return <OptimizerPage />;
       case 'upgrade':
@@ -29,14 +29,14 @@ const App = () => {
       case 'account':
         return <AccountPage />;
       default:
-        return <MainPage />;
+        return <MainPage setCurrentPage={setCurrentPage} />;
     }
   };
 
   return (
     <div className="app-container">
-      <Sidebar setCurrentPage={setCurrentPage} />
-        {renderPage()}
+      <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      {renderPage()}
     </div>
   );
 };

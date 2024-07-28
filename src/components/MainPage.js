@@ -89,31 +89,36 @@ const ScanningPage = ({ onStopScanning, disableSidebar }) => {
   );
 };
 
-const ResultPage = ({ result }) => (
+const ResultPage = ({ result, onCleanThreats }) => (
   <div className="main-content">
     <h1 className="welcome-message">
       {result === 'threat' ? 'Scanning your system' : 'Scanning your system'}
     </h1>
     <p className="description">
-      {result === 'threat' 
+      {result === 'threat'
         ? 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'
         : 'Your system is undergoing a comprehensive scan. Please refrain from turning off your system.'}
     </p>
     {result === 'threat' && (
-      <div className="main-image-container">
-        <div className="background-image-container">
-          <img src={ThreatBgImage} alt="Background" className="background-image" />
+      <div>
+        <div className="main-image-container">
+          <div className="background-image-container">
+            <img src={ThreatBgImage} alt="Background" className="background-image" />
+          </div>
+          <div className="main-image-1">
+            <img src={ThreatRedImage} alt="Threat" className="result-image" />
+            <p className='threat-text'>THREATS DETECTED!</p>
+          </div>
         </div>
-        <div className="main-image-1">
-          <img src={ThreatRedImage} alt="Result" className="result-image" />
-          <p className='threat-text'>THREATS DETECTED!</p>
+        <div className="main-buttons">
+          <button className="run-scanning-button" onClick={onCleanThreats}>Clean Threats</button>
         </div>
       </div>
     )}
   </div>
 );
 
-const MainPage = () => {
+const MainPage = ({ setCurrentPage }) => {
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState(null);
   const [disableSidebar, setDisableSidebar] = useState(false);
@@ -135,11 +140,15 @@ const MainPage = () => {
 
   const stopScanning = () => setScanning(false);
 
+  const handleCleanThreats = () => {
+    setCurrentPage('optimizer');
+  };
+
   return (
     <div className={`main-page ${disableSidebar ? 'sidebar-disabled' : ''}`}>
       <TopBar />
       {result ? (
-        <ResultPage result={result} />
+        <ResultPage result={result} onCleanThreats={handleCleanThreats} />
       ) : scanning ? (
         <ScanningPage onStopScanning={stopScanning} disableSidebar={setDisableSidebar} />
       ) : (
