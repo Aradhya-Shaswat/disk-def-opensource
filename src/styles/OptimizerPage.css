@@ -1,222 +1,140 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden; 
-  }
-  .sidebar {
-    flex-shrink: 0;
-  }
-  .main-page, .scanning-page {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    color: white;
-    background: linear-gradient(90deg, hsla(168, 47%, 60%, 0.5) 0%, hsla(216, 55%, 13%, 1) 17%, hsla(248, 94%, 6%, 1) 93%);
-    background: -moz-linear-gradient(90deg, hsla(168, 47%, 60%, 0.5) 0%, hsla(216, 55%, 13%, 1) 17%, hsla(248, 94%, 6%, 1) 93%);
-    background: -webkit-linear-gradient(90deg, hsla(168, 47%, 60%, 0.5) 0%, hsla(216, 55%, 13%, 1) 17%, hsla(248, 94%, 6%, 1) 93%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#43B8A0", endColorstr="#0F1E34", GradientType=1);
-    height: 100vh;
-    padding: 20px;
-    overflow: hidden; 
-    user-select: none;
-    position: relative;
-  }
-  
-  .top-bar {
-    display: flex;
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    gap: 20px;
-    z-index: 10;
-  }
-  
-  .top-bar-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .top-bar-item:focus {
-    outline: none;
-  }
-  
-  .top-bar-icon {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .top-bar-text {
-    font-size: 14px;
-  }
-  
-  .main-content {
-    text-align: left;
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .welcome-message, .scanning-page .common-heading {
-    color: #5BFAD4;
-    font-size: 32px;
-    margin-top: 35px;
-  }
-  
-  .description, .scanning-page .common-description {
-    font-size: 16px;
-    margin: 10px 0;
-  }
-  
-  .main-image-container, .scanning-page .spinner {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    position: relative;
-  }
-  
-  .background-image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .background-image {
-    width: 100%;
-    height: auto;
-    opacity: 0.5;
-  }
-  
-  .main-image {
-    margin-top: 20px;
-    position: relative;
-  }
-  
-  .main-image img {
-    width: 250px;
-    height: auto;
-  }
-  
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(-360deg);
-    }
-  }
-  
-  .main-image-1 {
-    margin-top: 20px;
-    position: relative;
-  }
-  
-  .spinner-image {
-    width: 200px;
-    height: auto;
-    animation: rotate 3s linear infinite;
-  }
-  
-  .percentage-counter {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    color: #02C294;
-    font-size: 24px;
-    font-weight: bold;
-    pointer-events: none;
-  }
-  
-  .clock-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-  }
-  
-  .main-buttons, .scanning-page .button-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    position: absolute;
-    bottom: 100px;
-    right: 30px;
-  }
-  
-  .learn-more-button {
-    border: 2px solid #02C294;
-    color: #02C294;
-    background-color: transparent;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .run-scanning-button, .stop-scan-button {
-    background-color: #02C294;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 0; 
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .run-scanning-button:hover, .stop-scan-button:hover {
-    background-color: #028d70; 
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  .result-image-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .result-image {
-    width: 225px;
-    height: auto; 
-  }
-  
-  .fade-enter {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .fade-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .fade-exit-active {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  
-  .threat-text {
-    text-align: center;
-    text-transform: capitalize;
-    text-shadow: #028d70;
-  }
+.optimizer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.top-bar {
+  display: flex;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  gap: 20px;
+  z-index: 10;
+}
+
+.top-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.top-bar-item:focus {
+  outline: none;
+}
+
+.top-bar-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.top-bar-text {
+  font-size: 14px;
+}
+
+p {
+  color: #a9fbd7;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  width: 80%;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 150px;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100px;
+  height: 2px;
+  background: #02C294;
+}
+
+.step:last-child::before {
+  display: none;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #02C294;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e2f;
+  margin-bottom: 10px;
+}
+
+.step-circle.completed {
+  background-color: #02C294;
+}
+
+.step-description {
+  text-align: center;
+}
+
+.step-description h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #a9fbd7;
+}
+
+.step-description p {
+  margin: 2px 0;
+  font-size: 12px;
+  color: #a9fbd7;
+}
+
+.status.completed {
+  color: #02C294;
+}
+
+.status.in-progress {
+  color: #FFD700;
+}
+
+.optimize-button {
+  background-color: #02C294;
+  border: none;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.optimize-button.disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.optimize-button:hover:not(.disabled) {
+  background-color: #02967f;
+}
