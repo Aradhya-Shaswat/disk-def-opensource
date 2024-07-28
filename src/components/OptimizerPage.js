@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/OptimizerPage.css';
 import NotificationIcon from '../notification.png';
 import SettingsIcon from '../settings.png';
+import TickIcon from '../tick-mark.png';
 
 const OptimizerPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -18,7 +19,33 @@ const OptimizerPage = () => {
 
   const handleOptimizeClick = () => {
     setIsOptimizing(true);
+    setCurrentStep(1);
   };
+
+  if (currentStep === 3) {
+    return (
+      <div className="optimizer-container-1">
+        <div className="top-bar">
+          <button className="top-bar-item">
+            <img src={NotificationIcon} alt="Notifications" className="top-bar-icon" />
+            <span className="top-bar-text">Notifications</span>
+          </button>
+          <button className="top-bar-item">
+            <img src={SettingsIcon} alt="Settings" className="top-bar-icon" />
+            <span className="top-bar-text">Settings</span>
+          </button>
+        </div>
+        <div className="main-content">
+          <h1 className="welcome-message">Optimization Completed.</h1>
+          <p className="description">Your Computer has been successfully optimized! Feel free to resume your work.</p>
+          <img src={TickIcon} alt='tick' className="tick-icon" />
+          <div className="main-buttons-1">
+          <button className="learn-more-button">Back to Home</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="optimizer-container">
@@ -34,35 +61,41 @@ const OptimizerPage = () => {
       </div>
       <div className="main-content">
         <h1 className="welcome-message">Welcome to Performance Optimizer</h1>
-        <p className="description">Start Optimizing your PC.</p>
+        <p className="description">Click on the "Optimize Now" button to start the process of optimizing your computer and improving its performance.</p>
         <div className="steps-container">
           <div className={`step ${currentStep >= 1 ? 'completed' : ''}`}>
-            <div className={`step-circle ${currentStep >= 1 ? 'completed' : ''}`}></div>
+            <div className={`step-circle ${currentStep >= 1 ? 'completed' : currentStep === 1 ? 'in-progress' : ''}`}></div>
             <div className="step-description">
               <h3>1 Step</h3>
               <p>Improve PC's Performance</p>
-              <p className="status completed">{currentStep > 1 ? 'Completed' : currentStep === 1 ? 'Completed' : ''}</p>
+              <p className={`status ${currentStep === 1 ? 'in-progress' : currentStep > 1 ? 'completed' : ''}`}>
+                {currentStep > 1 ? 'Completed' : currentStep === 1 ? 'In Progress' : ''}
+              </p>
             </div>
           </div>
           <div className={`step ${currentStep >= 2 ? 'completed' : ''}`}>
-            <div className={`step-circle ${currentStep >= 2 ? 'completed' : ''}`}></div>
+            <div className={`step-circle ${currentStep >= 2 ? 'completed' : currentStep === 2 ? 'in-progress' : ''}`}></div>
             <div className="step-description">
               <h3>2 Step</h3>
-              <p>Speed up start time</p>
-              <p className="status completed">{currentStep > 2 ? 'Completed' : currentStep === 2 ? 'Completed' : ''}</p>
+              <p>Speed up system's starting time</p>
+              <p className={`status ${currentStep === 2 ? 'in-progress' : currentStep > 2 ? 'completed' : ''}`}>
+                {currentStep > 2 ? 'Completed' : currentStep === 2 ? 'In Progress' : ''}
+              </p>
             </div>
           </div>
           <div className={`step ${currentStep === 3 ? 'completed' : ''}`}>
-            <div className={`step-circle ${currentStep === 3 ? 'completed' : 'in-progress'}`}></div>
+            <div className={`step-circle ${currentStep === 3 ? 'completed' : ''}`}></div>
             <div className="step-description">
               <h3>3 Step</h3>
-              <p>Boost battery health and life</p>
-              <p className="status in-progress">{currentStep === 3 ? 'In Progress' : ''}</p>
+              <p>Boost and Increase PC's health and lifespan.</p>
+              <p className={`status ${currentStep === 3 ? 'in-progress' : ''}`}>
+                {currentStep === 3 ? 'In Progress' : ''}
+              </p>
             </div>
           </div>
         </div>
-        <button 
-          className={`optimize-button ${isOptimizing ? 'disabled' : ''}`} 
+        <button
+          className={`optimize-button ${isOptimizing ? 'disabled' : ''}`}
           onClick={handleOptimizeClick}
           disabled={isOptimizing}
         >

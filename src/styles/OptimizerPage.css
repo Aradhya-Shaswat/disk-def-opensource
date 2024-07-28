@@ -1,3 +1,9 @@
+body {
+  background-color: #05011f;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
 .optimizer-container {
   display: flex;
   flex-direction: column;
@@ -8,6 +14,17 @@
   color: #fff;
   text-align: center;
   position: relative;
+}
+
+.optimizer-container-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 .top-bar {
@@ -49,33 +66,21 @@ p {
 
 .steps-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px auto;
   width: 80%;
+  gap: 40px;
 }
 
 .step {
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   width: 150px;
-}
-
-.step::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  width: 100px;
-  height: 2px;
-  background: #02C294;
-}
-
-.step:last-child::before {
-  display: none;
 }
 
 .step-circle {
@@ -92,6 +97,19 @@ p {
 
 .step-circle.completed {
   background-color: #02C294;
+}
+
+.step-circle.in-progress {
+  animation: radiate 1.5s infinite;
+}
+
+@keyframes radiate {
+  0% {
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700;
+  }
+  100% {
+    box-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700;
+  }
 }
 
 .step-description {
@@ -118,16 +136,33 @@ p {
   color: #FFD700;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .optimize-button {
+  margin-top: 5%;
   background-color: #02C294;
   border: none;
   color: #fff;
-  padding: 12px 30px;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 20px;
-  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 14px;
+  width: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.optimize-button:hover {
+  background-color: #029f85;
+  transform: scale(1.05);
 }
 
 .optimize-button.disabled {
@@ -137,4 +172,21 @@ p {
 
 .optimize-button:hover:not(.disabled) {
   background-color: #02967f;
+}
+
+
+.tick-icon {
+  margin-top: 10%;
+  width: 150px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-buttons-1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }

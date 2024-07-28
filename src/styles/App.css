@@ -9,4 +9,6 @@ body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background-color: #05011f;
+  -webkit-user-select: none; /* Disable text selection for all elements */
+  -webkit-user-drag: none; /* Disable dragging for all elements */
 }

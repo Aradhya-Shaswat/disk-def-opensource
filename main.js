@@ -50,8 +50,6 @@ function createWindow() {
   });
 }
 
-
-
 function checkLicense() {
   if (!fs.existsSync(userDataPath)) {
     fs.mkdirSync(userDataPath);
@@ -76,26 +74,33 @@ function checkLicense() {
 
 async function getSystemInfo() {
   try {
-    const cpu = await si.cpu();
+    const cpu = await si.currentLoad();
     const memory = await si.mem();
     const disk = await si.diskLayout();
-    const temperature = await si.thermals();
+    const temperature = await si.temperatures();
+    const tempFilesSize = checkTempFilesSize();
 
-    return { cpu, memory, disk, temperature };
+    return { cpu, memory, disk, temperature, tempFilesSize };
   } catch (error) {
     console.error('Error fetching system info:', error);
     return { error: error.message };
   }
 }
 
-function checkTempFiles() {
+function checkTempFilesSize() {
   const tempPath = os.tmpdir();
   try {
     const files = fs.readdirSync(tempPath);
-    return files.length > 0;
+    let totalSize = 0;
+    files.forEach(file => {
+      const filePath = path.join(tempPath, file);
+      const stats = fs.statSync(filePath);
+      totalSize += stats.size;
+    });
+    return totalSize / (1024 * 1024 * 1024); // Convert to GB
   } catch (error) {
-    console.error('Error checking temp files:', error);
-    return false;
+    console.error('Error checking temp files size:', error);
+    return 0;
   }
 }
 
@@ -145,25 +150,6 @@ ipcMain.on('continue-to-main', () => {
 
 ipcMain.handle('get-system-info', async () => {
   return await getSystemInfo();
-});
-
-ipcMain.handle('check-temp-files', () => {
-  return checkTempFiles();
-});
-
-ipcMain.handle('delete-temp-files', async () => {
-  const tempPath = os.tmpdir();
-  try {
-    const files = fs.readdirSync(tempPath);
-    for (const file of files) {
-      const filePath = path.join(tempPath, file);
-      fs.unlinkSync(filePath);
-    }
-    return { success: true };
-  } catch (error) {
-    console.error('Error deleting temp files:', error);
-    return { success: false, error: error.message };
-  }
 });
 
 app.on('window-all-closed', () => {

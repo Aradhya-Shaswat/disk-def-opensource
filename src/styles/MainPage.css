@@ -157,6 +157,22 @@ html, body {
   right: 30px;
 }
 
+.tick-icon {
+  margin-top: 10%;
+  width: 150px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-buttons-1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
 .learn-more-button {
   border: 2px solid #02C294;
   color: #02C294;
