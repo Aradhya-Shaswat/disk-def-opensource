@@ -97,10 +97,26 @@ function checkTempFilesSize() {
       const stats = fs.statSync(filePath);
       totalSize += stats.size;
     });
-    return totalSize / (1024 * 1024 * 1024); // Convert to GB
+    return totalSize / (1024 * 1024 * 1024); 
   } catch (error) {
     console.error('Error checking temp files size:', error);
     return 0;
+  }
+}
+
+function cleanTempFiles() {
+  const tempPath = os.tmpdir();
+  try {
+    const files = fs.readdirSync(tempPath);
+    files.forEach(file => {
+      const filePath = path.join(tempPath, file);
+      fs.unlinkSync(filePath);
+    });
+    console.log('Temporary files cleaned.');
+    return true;
+  } catch (error) {
+    console.error('Error cleaning temp files:', error);
+    return false;
   }
 }
 
@@ -150,6 +166,10 @@ ipcMain.on('continue-to-main', () => {
 
 ipcMain.handle('get-system-info', async () => {
   return await getSystemInfo();
+});
+
+ipcMain.handle('clean-temp-files', async () => {
+  return cleanTempFiles();
 });
 
 app.on('window-all-closed', () => {

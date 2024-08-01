@@ -1,0 +1,149 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.upgrade-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #05011f;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.top-bar {
+  display: flex;
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  gap: 20px;
+  z-index: 10;
+}
+
+.top-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.top-bar-item:focus {
+  outline: none;
+}
+
+.top-bar-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.top-bar-text {
+  font-size: 14px;
+}
+
+.upgrade-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.upgrade-title {
+  font-size: 32px;
+  color: #5BFAD4;
+  margin-bottom: 10px;
+}
+
+.upgrade-description {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  margin-top: 40px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.plan {
+  background: #1E2A38;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  height: auto;
+  text-align: center;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.plan.standard {
+  border-color: #5BFAD4;
+}
+
+.plan h2 {
+  font-size: 24px;
+  color: #5BFAD4;
+}
+
+.per-month {
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.plan h3 {
+  font-size: 20px;
+  color: #FFFFFF;
+  margin: 10px 0;
+}
+
+.popular-badge {
+  background: orange;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.plan ul li {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.upgrade-button {
+  background-color: #02C294;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.upgrade-button:hover {
+  background-color: #028d70;
+}

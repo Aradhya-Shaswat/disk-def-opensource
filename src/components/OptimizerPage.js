@@ -4,6 +4,8 @@ import NotificationIcon from '../notification.png';
 import SettingsIcon from '../settings.png';
 import TickIcon from '../tick-mark.png';
 
+const { ipcRenderer } = window.require('electron');
+
 const OptimizerPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isOptimizing, setIsOptimizing] = useState(false);
@@ -21,6 +23,17 @@ const OptimizerPage = () => {
     setIsOptimizing(true);
     setCurrentStep(1);
   };
+
+  useEffect(() => {
+    if (currentStep === 3) {
+      
+      ipcRenderer.invoke('clean-temp-files').then(() => {
+        console.log('Temporary files cleaned');
+      }).catch((error) => {
+        console.error('Error cleaning temporary files:', error);
+      });
+    }
+  }, [currentStep]);
 
   if (currentStep === 3) {
     return (
@@ -40,7 +53,7 @@ const OptimizerPage = () => {
           <p className="description">Your Computer has been successfully optimized! Feel free to resume your work.</p>
           <img src={TickIcon} alt='tick' className="tick-icon" />
           <div className="main-buttons-1">
-          <button className="learn-more-button">Back to Home</button>
+            <button className="learn-more-button">Back to Home</button>
           </div>
         </div>
       </div>
