@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/UpgradePage.css';
+import '../styles/HelpPage.css';
 import NotificationIcon from '../notification.png';
 import SettingsIcon from '../settings.png';
 
