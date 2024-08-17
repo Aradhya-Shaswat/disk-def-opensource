@@ -29,29 +29,26 @@ const UpgradePage = () => (
           <h2>$25 <span className="per-month">Per/month</span></h2>
           <h3>Basic</h3>
           <ul>
-            <li>Lorem ipsum dolor</li>
-            <li>sit amet</li>
+            <li>??r</li>
+            <li>??</li>
           </ul>
           <button className="upgrade-button">Upgrade</button>
         </div>
-        <div className="plan standard">
+        <div className="plan basic">
           <h2>$70 <span className="per-month">Per/month</span></h2>
-          <h3>Standard <span className="popular-badge">Popular</span></h3>
+          <h3>Standard</h3>
           <ul>
-            <li>Lorem ipsum dolor</li>
-            <li>Ipsum dolor</li>
-            <li>Amet ipsum dolor</li>
+            <li>??</li>
+            <li>??</li>
           </ul>
           <button className="upgrade-button">Upgrade</button>
         </div>
-        <div className="plan professional">
+        <div className="plan basic">
           <h2>$110 <span className="per-month">Per/month</span></h2>
           <h3>Professional</h3>
           <ul>
-            <li>Lorem ipsum dolor</li>
-            <li>Sit amet</li>
-            <li>Lorem ipsum dolor</li>
-            <li>Sit amet</li>
+            <li>??</li>
+            <li>??</li>
           </ul>
           <button className="upgrade-button">Upgrade</button>
         </div>

@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+
+  .top-bar {
+    display: flex;
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    gap: 20px;
+    z-index: 10;
+  }
+  
+  .notifications, .settings {
+    color: white;
+    cursor: pointer;
+  }
+  
